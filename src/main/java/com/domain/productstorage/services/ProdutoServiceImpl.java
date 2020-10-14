@@ -6,7 +6,6 @@ import com.domain.productstorage.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProdutoServiceImpl implements  ProdutoServiceI{
@@ -37,7 +36,15 @@ public class ProdutoServiceImpl implements  ProdutoServiceI{
     }
 
     @Override
-    public Produto atualizaProduto(long id, Produto produto) {
-        return null;
+    public Produto atualizaProduto(long id, Produto produto) throws ProdutoNaoEncontrado{
+        Produto produtoBD = this.produtoRepository.findById(id)
+                .orElseThrow(()-> new ProdutoNaoEncontrado("Produto com id: " + id+ " não encontrado."));
+
+        produtoBD.setNome(produto.getNome());
+        produtoBD.setPreco(produto.getPreco());
+        produtoBD.setDescricao(produto.getDescricao());
+        this.produtoRepository.save(produtoBD);
+        return produtoBD;
+
     }
 }
