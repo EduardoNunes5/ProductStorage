@@ -47,4 +47,12 @@ public class ProdutoServiceImpl implements  ProdutoServiceI{
         return produtoBD;
 
     }
+
+    @Override
+    public Produto findById(long id) throws ProdutoNaoEncontrado {
+        Produto produtoBD = this.produtoRepository.findById(id)
+                .orElseThrow(()-> new ProdutoNaoEncontrado("Produto com id: " + id+ " não encontrado."));
+
+        return produtoBD;
+    }
 }

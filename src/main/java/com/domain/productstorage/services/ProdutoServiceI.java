@@ -16,4 +16,6 @@ public interface ProdutoServiceI {
     Produto deletaProduto(Long id);
 
     Produto atualizaProduto(long id, Produto produto);
+
+    Produto findById(long id);
 }

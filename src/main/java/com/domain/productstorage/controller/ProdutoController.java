@@ -30,6 +30,16 @@ public class ProdutoController {
         return new ResponseEntity<>(this.produtoService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping(value="/produtos/{id}")
+    public ResponseEntity<?> getProduto(@PathVariable("id") long id){
+        try{
+            return new ResponseEntity<>(this.produtoService.findById(id), HttpStatus.OK);
+        }
+        catch(ProdutoNaoEncontrado pne){
+            return new ResponseEntity<>(new MensagemErro(pne.getMessage()), HttpStatus.NOT_FOUND);
+        }
+    }
+
     @PutMapping(value="/produtos/{id}")
     public ResponseEntity<?> atualizaProduto(@PathVariable("id") long id, @RequestBody Produto produto){
         try{
