@@ -113,9 +113,7 @@ export default function FormProduto(props){
                 toast.show&& 
                 <Toast {...toast}/>
             }
-            {
-                console.log('rendering')
-            }
+
         </>
     )
 }
