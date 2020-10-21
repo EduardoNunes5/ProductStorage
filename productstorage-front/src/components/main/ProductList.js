@@ -92,9 +92,6 @@ export default function Home(props){
                 toast.show &&
                 <Toast {...toast}/>
             }
-            {
-                console.log('rendering;')
-            }
             
         </>
     )
