@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+
 @RestController
 @RequestMapping("api")
 @CrossOrigin
@@ -20,7 +22,7 @@ public class ProdutoController {
     }
 
 
-    @PostMapping(value="/produto")
+    @PostMapping(value="/produtos")
     public ResponseEntity<?> adicionaProduto(@RequestBody Produto produto){
         return new ResponseEntity<>(this.produtoService.insert(produto), HttpStatus.CREATED);
     }
@@ -34,6 +36,16 @@ public class ProdutoController {
     public ResponseEntity<?> getProduto(@PathVariable("id") long id){
         try{
             return new ResponseEntity<>(this.produtoService.findById(id), HttpStatus.OK);
+        }
+        catch(ProdutoNaoEncontrado pne){
+            return new ResponseEntity<>(new MensagemErro(pne.getMessage()), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping(value="/produtos/")
+    public ResponseEntity<?> getByNome(@RequestParam("nome") String nome){
+        try{
+            return new ResponseEntity<>(this.produtoService.findByNome(nome), HttpStatus.OK);
         }
         catch(ProdutoNaoEncontrado pne){
             return new ResponseEntity<>(new MensagemErro(pne.getMessage()), HttpStatus.NOT_FOUND);

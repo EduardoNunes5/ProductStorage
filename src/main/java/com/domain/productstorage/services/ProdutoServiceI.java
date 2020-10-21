@@ -18,4 +18,6 @@ public interface ProdutoServiceI {
     Produto atualizaProduto(long id, Produto produto);
 
     Produto findById(long id);
+
+    Produto findByNome(String nome);
 }

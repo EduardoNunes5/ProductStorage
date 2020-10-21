@@ -43,6 +43,7 @@ public class ProdutoServiceImpl implements  ProdutoServiceI{
         produtoBD.setNome(produto.getNome());
         produtoBD.setPreco(produto.getPreco());
         produtoBD.setDescricao(produto.getDescricao());
+        produtoBD.setUrlImagem(produto.getUrlImagem());
         this.produtoRepository.save(produtoBD);
         return produtoBD;
 
@@ -52,6 +53,14 @@ public class ProdutoServiceImpl implements  ProdutoServiceI{
     public Produto findById(long id) throws ProdutoNaoEncontrado {
         Produto produtoBD = this.produtoRepository.findById(id)
                 .orElseThrow(()-> new ProdutoNaoEncontrado("Produto com id: " + id+ " não encontrado."));
+
+        return produtoBD;
+    }
+
+    @Override
+    public Produto findByNome(String nome) {
+        Produto produtoBD = this.produtoRepository.findByNome(nome)
+                .orElseThrow(()-> new ProdutoNaoEncontrado("Produto com id: " + nome+ " não encontrado."));
 
         return produtoBD;
     }
